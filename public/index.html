@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portal de notícias e direitos para a comunidade surda brasileira">
+  <title>Comunidade em Sinais</title>
+  
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <div class="container cabecalho__container">
+      <a href="/" class="cabecalho__logo">
+        <div class="cabecalho__logo-icone">
+          <i data-lucide="hand-metal"></i>
+        </div>
+        <span>Comunidade em Sinais</span>
+      </a>
+
+      <nav class="cabecalho__nav" aria-label="Navegação principal">
+        <a href="/" class="cabecalho__nav-link cabecalho__nav-link--ativo" data-pagina="inicio">Início</a>
+        <a href="#noticias" class="cabecalho__nav-link" data-pagina="noticias">Notícias</a>
+        <a href="#eventos" class="cabecalho__nav-link" data-pagina="eventos">Eventos</a>
+        <a href="#direitos" class="cabecalho__nav-link" data-pagina="direitos">Direitos</a>
+        <a href="#sua-historia" class="cabecalho__nav-link" data-pagina="sua-historia">Sua História</a>
+      </nav>
+
+      <div class="cabecalho__acoes">
+        <button class="cabecalho__btn-contraste" id="btn-contraste" aria-label="Alternar alto contraste">
+          <i data-lucide="contrast"></i>
+        </button>
+        
+        <!-- Área do usuário não logado -->
+        <div id="area-nao-logado">
+          <button class="botao botao--primario" id="btn-entrar">Entrar</button>
+        </div>
+
+        <!-- Área do usuário logado -->
+        <div id="area-logado" class="oculto dropdown-usuario">
+          <button class="usuario-logado" id="btn-usuario">
+            <div class="usuario-logado__avatar" id="usuario-avatar">U</div>
+            <span class="usuario-logado__nome" id="usuario-nome">Usuário</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="dropdown-usuario__menu" id="dropdown-usuario">
+            <a href="#perfil" class="dropdown-usuario__item">Meu Perfil</a>
+            <button class="dropdown-usuario__item dropdown-usuario__item--sair" id="btn-sair">Sair</button>
+          </div>
+        </div>
+
+        <button class="cabecalho__btn-menu" id="btn-menu" aria-label="Abrir menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu Mobile -->
+  <div class="menu-mobile" id="menu-mobile">
+    <button class="menu-mobile__fechar" id="btn-fechar-menu" aria-label="Fechar menu">
+      <i data-lucide="x"></i>
+    </button>
+    <nav class="menu-mobile__nav">
+      <a href="/" class="menu-mobile__link" data-pagina="inicio">Início</a>
+      <a href="#noticias" class="menu-mobile__link" data-pagina="noticias">Notícias</a>
+      <a href="#eventos" class="menu-mobile__link" data-pagina="eventos">Eventos</a>
+      <a href="#direitos" class="menu-mobile__link" data-pagina="direitos">Direitos</a>
+      <a href="#sua-historia" class="menu-mobile__link" data-pagina="sua-historia">Sua História</a>
+    </nav>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <main id="conteudo-principal">
+    <!-- Página Inicial -->
+    <div id="pagina-inicio">
+      <!-- Carrossel de Destaque -->
+      <section class="hero" id="carrossel-destaque">
+        <div class="container hero__container">
+          <div class="hero__conteudo">
+            <span class="card-noticia__categoria" id="destaque-categoria">Carregando...</span>
+            <h1 class="hero__titulo" id="destaque-titulo">Carregando notícias em destaque...</h1>
+            <p class="hero__descricao" id="destaque-resumo">Aguarde enquanto buscamos as últimas novidades para você.</p>
+            <a href="#" class="botao botao--secundario" id="destaque-link" style="background: white; color: var(--cor-primaria);">
+              Ler mais <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+          <div class="carrossel__controles" id="carrossel-controles"></div>
+        </div>
+      </section>
+
+      <!-- Categorias -->
+      <section class="secao">
+        <div class="container">
+          <h2 class="secao__titulo">
+            <i data-lucide="layout-grid" class="secao__titulo-icone"></i>
+            Explore por Categoria
+          </h2>
+          <div class="grid-cards grid-cards--4" id="lista-categorias">
+            <div class="carregando"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Layout com Sidebar -->
+      <section class="secao">
+        <div class="container">
+          <div class="layout-principal">
+            <!-- Notícias Recentes -->
+            <div>
+              <h2 class="secao__titulo">
+                <i data-lucide="newspaper" class="secao__titulo-icone"></i>
+                Últimas Notícias
+              </h2>
+              <div class="grid-cards grid-cards--2" id="lista-noticias">
+                <div class="carregando"><div class="spinner"></div></div>
+              </div>
+            </div>
+
+            <!-- Barra Lateral -->
+            <aside class="barra-lateral">
+              <!-- Termo do Dia -->
+              <div class="barra-lateral__widget termo-dia" id="widget-termo">
+                <h3 class="barra-lateral__titulo" style="color: white;">
+                  <i data-lucide="book-open"></i>
+                  Termo do Dia
+                </h3>
+                <p class="termo-dia__palavra" id="termo-palavra">Carregando...</p>
+                <p class="termo-dia__definicao" id="termo-definicao"></p>
+              </div>
+
+              <!-- Próximos Eventos -->
+              <div class="barra-lateral__widget">
+                <h3 class="barra-lateral__titulo">
+                  <i data-lucide="calendar"></i>
+                  Próximos Eventos
+                </h3>
+                <div id="lista-eventos-sidebar">
+                  <div class="carregando"><div class="spinner"></div></div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Página de Notícias -->
+    <div id="pagina-noticias" class="oculto">
+      <section class="secao">
+        <div class="container">
+          <h1 class="secao__titulo">
+            <i data-lucide="newspaper" class="secao__titulo-icone"></i>
+            Todas as Notícias
+          </h1>
+          
+          <!-- Filtros -->
+          <div style="margin-bottom: var(--espacamento-lg); display: flex; gap: var(--espacamento-md); flex-wrap: wrap;">
+            <select class="formulario__select" id="filtro-categoria" style="max-width: 200px;">
+              <option value="">Todas as categorias</option>
+            </select>
+          </div>
+
+          <div class="grid-cards grid-cards--3" id="todas-noticias">
+            <div class="carregando"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Página de Notícia Individual -->
+    <div id="pagina-noticia" class="oculto">
+      <article class="noticia-completa" id="noticia-conteudo">
+        <div class="carregando"><div class="spinner"></div></div>
+      </article>
+    </div>
+
+    <!-- Página de Eventos -->
+    <div id="pagina-eventos" class="oculto">
+      <section class="secao">
+        <div class="container">
+          <h1 class="secao__titulo">
+            <i data-lucide="calendar" class="secao__titulo-icone"></i>
+            Agenda de Eventos
+          </h1>
+          <p style="color: var(--cor-texto-secundario); margin-bottom: var(--espacamento-xl);">
+            Confira os próximos eventos acessíveis para a comunidade surda. Todos com intérprete de Libras.
+          </p>
+          <div class="grid-cards grid-cards--2" id="todos-eventos">
+            <div class="carregando"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Página de Direitos -->
+    <div id="pagina-direitos" class="oculto">
+      <section class="secao">
+        <div class="container">
+          <h1 class="secao__titulo">
+            <i data-lucide="scale" class="secao__titulo-icone"></i>
+            Seus Direitos
+          </h1>
+          <p style="color: var(--cor-texto-secundario); margin-bottom: var(--espacamento-xl);">
+            Conheça as leis e decretos que garantem os direitos da comunidade surda brasileira.
+          </p>
+          <div class="grid-cards grid-cards--2" id="lista-direitos">
+            <div class="carregando"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Página Sua História -->
+    <div id="pagina-sua-historia" class="oculto">
+      <section class="secao">
+        <div class="container" style="max-width: 600px;">
+          <h1 class="secao__titulo texto-centro">
+            <i data-lucide="heart" class="secao__titulo-icone"></i>
+            Envie Sua História
+          </h1>
+          <p class="texto-centro" style="color: var(--cor-texto-secundario); margin-bottom: var(--espacamento-xl);">
+            Compartilhe sua experiência como pessoa surda. Sua história pode inspirar e ajudar outras pessoas da comunidade.
+          </p>
+
+          <form class="formulario" id="form-historia">
+            <div class="formulario__campo">
+              <label class="formulario__label" for="historia-titulo">Título da sua história *</label>
+              <input type="text" id="historia-titulo" class="formulario__input" required 
+                    placeholder="Ex: Como a Libras mudou minha vida">
+            </div>
+
+            <div class="formulario__campo">
+              <label class="formulario__label" for="historia-conteudo">Sua história *</label>
+              <textarea id="historia-conteudo" class="formulario__textarea" required rows="8"
+                        placeholder="Conte sua experiência, desafios superados, conquistas..."></textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--espacamento-md);">
+              <div class="formulario__campo">
+                <label class="formulario__label" for="historia-nome">Seu nome *</label>
+                <input type="text" id="historia-nome" class="formulario__input" required>
+              </div>
+              <div class="formulario__campo">
+                <label class="formulario__label" for="historia-email">Seu email *</label>
+                <input type="email" id="historia-email" class="formulario__input" required>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--espacamento-md);">
+              <div class="formulario__campo">
+                <label class="formulario__label" for="historia-cidade">Cidade</label>
+                <input type="text" id="historia-cidade" class="formulario__input">
+              </div>
+              <div class="formulario__campo">
+                <label class="formulario__label" for="historia-estado">Estado</label>
+                <select id="historia-estado" class="formulario__select">
+                  <option value="">Selecione...</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="historia-mensagem"></div>
+
+            <button type="submit" class="botao botao--primario botao--grande">
+              <i data-lucide="send"></i>
+              Enviar História
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- Página de Categoria -->
+    <div id="pagina-categoria" class="oculto">
+      <section class="secao">
+        <div class="container">
+          <a href="#noticias" class="noticia-completa__voltar" style="margin-bottom: var(--espacamento-lg); display: inline-flex;">
+            <i data-lucide="arrow-left"></i>
+            Voltar para notícias
+          </a>
+          <h1 class="secao__titulo" id="categoria-titulo">Categoria</h1>
+          <p id="categoria-descricao" style="color: var(--cor-texto-secundario); margin-bottom: var(--espacamento-xl);"></p>
+          <div class="grid-cards grid-cards--3" id="categoria-noticias">
+            <div class="carregando"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal de Autenticação -->
+  <div class="modal-overlay" id="modal-auth">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 class="modal__titulo" id="modal-titulo">Entrar</h2>
+        <button class="modal__fechar" id="modal-fechar" aria-label="Fechar">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="modal__tabs">
+        <button class="modal__tab modal__tab--ativo" id="tab-login">Entrar</button>
+        <button class="modal__tab" id="tab-cadastro">Criar Conta</button>
+      </div>
+
+      <!-- Formulário de Login -->
+      <form class="formulario" id="form-login">
+        <div class="formulario__campo">
+          <label class="formulario__label" for="login-email">Email</label>
+          <input type="email" id="login-email" class="formulario__input" required placeholder="seu@email.com">
+        </div>
+        <div class="formulario__campo">
+          <label class="formulario__label" for="login-senha">Senha</label>
+          <input type="password" id="login-senha" class="formulario__input" required placeholder="Sua senha">
+        </div>
+        <div id="login-erro" class="formulario__erro oculto"></div>
+        <button type="submit" class="botao botao--primario botao--grande" style="width: 100%;">Entrar</button>
+      </form>
+
+      <!-- Formulário de Cadastro -->
+      <form class="formulario oculto" id="form-cadastro">
+        <div class="formulario__campo">
+          <label class="formulario__label" for="cadastro-nome">Nome completo</label>
+          <input type="text" id="cadastro-nome" class="formulario__input" required placeholder="Seu nome">
+        </div>
+        <div class="formulario__campo">
+          <label class="formulario__label" for="cadastro-email">Email</label>
+          <input type="email" id="cadastro-email" class="formulario__input" required placeholder="seu@email.com">
+        </div>
+        <div class="formulario__campo">
+          <label class="formulario__label" for="cadastro-senha">Senha</label>
+          <input type="password" id="cadastro-senha" class="formulario__input" required placeholder="Mínimo 6 caracteres" minlength="6">
+        </div>
+        <div class="formulario__campo">
+          <label class="formulario__label" for="cadastro-confirmar">Confirmar senha</label>
+          <input type="password" id="cadastro-confirmar" class="formulario__input" required placeholder="Repita a senha">
+        </div>
+        <div id="cadastro-erro" class="formulario__erro oculto"></div>
+        <button type="submit" class="botao botao--primario botao--grande" style="width: 100%;">Criar Conta</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape__grid">
+        <div>
+          <h3 class="rodape__titulo">Comunidade em Sinais</h3>
+          <p class="rodape__texto">
+            Portal de notícias e informações para a comunidade surda brasileira. 
+            Acreditamos em uma sociedade mais inclusiva e acessível para todos.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="rodape__titulo">Links Úteis</h3>
+          <nav class="rodape__links">
+            <a href="https://feneis.org.br" target="_blank" class="rodape__link">FENEIS</a>
+            <a href="https://www.gov.br/mdh/pt-br" target="_blank" class="rodape__link">Gov.br - Direitos Humanos</a>
+            <a href="https://www.libras.com.br" target="_blank" class="rodape__link">Dicionário de Libras</a>
+            <a href="#direitos" class="rodape__link">Seus Direitos</a>
+          </nav>
+        </div>
+
+        <div>
+          <h3 class="rodape__titulo">Redes Sociais</h3>
+          <div class="rodape__social">
+            <a href="https://instagram.com" class="rodape__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="instagram"></i>
+              <span class="sr-only">Instagram</span>
+            </a>
+            <a href="https://youtube.com" class="rodape__social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="youtube"></i>
+              <span class="sr-only">YouTube</span>
+            </a>
+            <a href="https://facebook.com" class="rodape__social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="facebook"></i>
+              <span class="sr-only">Facebook</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <p class="rodape__copyright">
+        &copy; 2026 Comunidade em Sinais. Todos os direitos reservados.
+      </p>
+    </div>
+  </footer>
+
+  <!-- PAINEL DE ADMINISTRADOR -->
+  <section id="admin-painel" class="oculto">
+    <div class="container">
+      <!-- Abas do Admin -->
+      <div style="display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid #E2E8F0;">
+        <button id="aba-noticias-admin" class="aba-admin aba-admin--ativa" style="padding: 1rem; background: none; border: none; cursor: pointer; font-weight: 600;">Notícias</button>
+        <button id="aba-historias-admin" class="aba-admin" style="padding: 1rem; background: none; border: none; cursor: pointer;">Histórias</button>
+        <button id="aba-usuarios-admin" class="aba-admin" style="padding: 1rem; background: none; border: none; cursor: pointer;">Usuários</button>
+      </div>
+
+      <!-- TAB: NOTÍCIAS -->
+      <div id="tab-noticias-admin">
+        <div class="painel-admin">
+          <h2 class="painel-admin__titulo">Gerenciar Notícias</h2>
+          <div class="painel-admin__botoes">
+            <button id="btn-nova-noticia" class="botao botao--primario">+ Nova Notícia</button>
+          </div>
+
+          <table class="tabela">
+            <thead class="tabela__header">
+              <tr>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-noticias">
+              <!-- Preenchido por JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: HISTÓRIAS -->
+      <div id="tab-historias-admin" class="oculto">
+        <div class="painel-admin">
+          <h2 class="painel-admin__titulo">Gerenciar Histórias</h2>
+          <div class="painel-admin__botoes" style="margin-bottom: 1rem;">
+            <button id="btn-nova-historia" class="botao botao--primario">+ Nova História</button>
+          </div>
+          <p style="color: #64748B; margin-bottom: 1rem;">Total de histórias enviadas pendentes de revisão</p>
+
+          <table class="tabela">
+            <thead class="tabela__header">
+              <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-historias">
+              <!-- Preenchido por JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: USUÁRIOS -->
+      <div id="tab-usuarios-admin" class="oculto">
+        <div class="painel-admin">
+          <h2 class="painel-admin__titulo">Gerenciar Usuários</h2>
+          <table class="tabela">
+            <thead class="tabela__header">
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Tipo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-usuarios">
+              <!-- Preenchido por JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL: NOVA/EDITAR NOTÍCIA -->
+  <div id="modal-noticia" class="modal">
+    <div class="modal__conteudo">
+      <h3 class="modal__titulo">Criar/Editar Notícia</h3>
+      <form id="form-noticia">
+        <div class="form-grupo">
+          <label class="form-grupo__label">Título *</label>
+          <input type="text" class="form-grupo__input" id="noticia-titulo" required />
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-grupo__label">Categoria *</label>
+          <select class="form-grupo__select" id="noticia-categoria" required>
+            <option value="">Selecione a categoria</option>
+          </select>
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-grupo__label">Resumo *</label>
+          <textarea class="form-grupo__textarea" id="noticia-resumo" required></textarea>
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-grupo__label">Conteúdo *</label>
+          <textarea class="form-grupo__textarea" id="noticia-conteudo" required style="min-height: 200px;"></textarea>
+        </div>
+
+        <div class="form-grupo">
+          <label>
+            <input type="checkbox" id="noticia-destaque" />
+            Marcar como destaque
+          </label>
+        </div>
+
+        <div class="modal__botoes">
+          <button type="button" class="botao botao--secundario" id="btn-fechar-modal-noticia">Cancelar</button>
+          <button type="submit" class="botao botao--primario">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: VISUALIZAR HISTÓRIA -->
+  <div id="modal-historia" class="modal">
+    <div class="modal__conteudo">
+      <div id="modal-historia-conteudo" style="line-height: 1.6;">
+        <!-- Preenchido por JavaScript -->
+      </div>
+      <div class="modal__botoes">
+        <button type="button" class="botao botao--secundario" id="btn-fechar-modal-historia">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NOVA/EDITAR HISTÓRIA ADMIN -->
+  <div id="modal-historia-admin" class="modal">
+    <div class="modal__conteudo">
+      <h3 class="modal__titulo">Nova História</h3>
+      <form id="form-historia-admin">
+        <div class="form-grupo">
+          <label class="form-grupo__label">Título *</label>
+          <input type="text" class="form-grupo__input" id="historia-admin-titulo" required />
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-grupo__label">Conteúdo *</label>
+          <textarea class="form-grupo__textarea" id="historia-admin-conteudo" required style="min-height: 200px;"></textarea>
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-grupo__label">Nome do Autor *</label>
+          <input type="text" class="form-grupo__input" id="historia-admin-nome" required />
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-grupo__label">Email do Autor *</label>
+          <input type="email" class="form-grupo__input" id="historia-admin-email" required />
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-grupo__label">Cidade</label>
+          <input type="text" class="form-grupo__input" id="historia-admin-cidade" />
+        </div>
+
+        <div class="form-grupo">
+          <label class="form-grupo__label">Estado</label>
+          <input type="text" class="form-grupo__input" id="historia-admin-estado" />
+        </div>
+
+        <div class="modal__botoes">
+          <button type="button" class="botao botao--secundario" id="btn-fechar-modal-historia-admin">Cancelar</button>
+          <button type="submit" class="botao botao--primario">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SPINNER GLOBAL -->
+  <div id="spinner-global" class="oculto" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; text-align: center;">
+    <div class="spinner"></div>
+    <p style="margin-top: 1rem; color: #64748B;">Carregando...</p>
+  </div>
+
+  <!-- VLibras -->
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/feedback.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

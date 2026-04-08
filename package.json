@@ -1,0 +1,29 @@
+{
+  "name": "comunidade-em-sinais",
+  "version": "1.0.0",
+  "description": "Portal de notícias e direitos para a comunidade surda brasileira",
+  "main": "servidor/app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node servidor/app.js",
+    "start": "node servidor/app.js",
+    "init-db": "node servidor/banco/inicializarBanco.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.6.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3"
+  }
+}
