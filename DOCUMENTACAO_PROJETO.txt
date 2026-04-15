@@ -1,0 +1,265 @@
+================================================================================
+                    COMUNIDADE EM SINAIS - DOCUMENTAÇÃO
+================================================================================
+
+DESCRIÇÃO DO PROJETO
+================================================================================
+Comunidade em Sinais é uma plataforma web completa desenvolvida para a comunidade
+surda brasileira, oferecendo notícias, direitos, eventos e espaço para compartilhamento
+de histórias pessoais. O projeto foi construído com tecnologias modernas e foco
+em acessibilidade e inclusão.
+
+TECNOLOGIAS UTILIZADAS
+================================================================================
+
+FRONTEND:
+- HTML5 semântico com estrutura semántica completa
+- CSS3 com variáveis CSS customizadas (--cores, --fontes, --borda-raio)
+- Design responsivo com media queries
+- JavaScript Vanilla (ES6+) com:
+  * Módulos ES6 (import/export)
+  * Fetch API para comunicação com backend
+  * localStorage para persistência de dados do cliente
+  * Event listeners e manipulação de DOM
+  * FormData API para envio de formulários
+- Lucide Icons - biblioteca de ícones SVG acessíveis
+- Componentes reutilizáveis (cards, modais, abas, tabelas)
+
+BACKEND:
+- Node.js - runtime JavaScript no servidor
+- Express.js 4.21.2 - framework web minimalista e flexível para:
+  * Roteamento de API RESTful
+  * Middleware customizado
+  * Gerenciamento de requisições e respostas HTTP
+- Autenticação e Segurança:
+  * JWT (jsonwebtoken) 9.0.2 - tokens com expiração de 7 dias
+  * bcryptjs 2.4.3 - hash de senhas com salt 10
+  * cookie-parser 1.4.7 - gerenciamento de cookies HTTP-only
+  * express-session 1.18.1 - sessões de usuário
+  * CORS 2.8.5 - controle de origem cruzada
+- Multer 1.4.5 - upload de arquivos multipart/form-data
+- UUID 11.0.3 - geração de identificadores únicos
+- Estrutura modular com rotas separadas (autenticacao, noticias, categorias, etc.)
+
+BANCO DE DADOS:
+- SQLite - banco de dados relacional embarcado
+- better-sqlite3 11.6.0 - driver síncrono de alto desempenho para SQLite
+- Características:
+  * Sem necessidade de servidor separado
+  * Arquivo de banco em .db armazenado localmente
+  * Suporta transações ACID
+  * Ideal para aplicações de médio porte
+- Tabelas normalizadas com relações de chave estrangeira:
+  * Usuario (id, nome, email, senha, tipo, dataCriacao, ativo)
+  * Noticia (id, titulo, slug, resumo, conteudo, categoriaId, autorId, destaque, publicado, dataCriacao, dataAtualizacao)
+  * Categoria (id, nome, slug, cor, dataCriacao)
+  * Historia (id, titulo, conteudo, usuarioId, nomeAutor, emailAutor, cidade, estado, aprovado, publicado, dataCriacao)
+  * Evento (id, titulo, descricao, data, local, acessibilidade, dataCriacao)
+  * Direito (id, titulo, descricao, numeroLei, linkOficial, categoria, dataCriacao)
+
+INFRAESTRUTURA:
+- Sistema de rotas RESTful com endpoints bem definidos
+- Middleware de autenticação e autorização baseado em JWT
+- Validação de dados no servidor (email, senha, comprimentos mínimos)
+- Tratamento de erros com códigos HTTP apropriados
+- Servir arquivos estáticos (HTML, CSS, JS, imagens) na pasta /public
+- Arquivos estáticos acessíveis via /public/:filename
+
+ESTRUTURA DO PROJETO
+================================================================================
+/
+├── public/                          # Arquivos do frontend
+│   ├── index.html                   # Página principal
+│   ├── css/
+│   │   └── estilos.css              # Estilos globais
+│   ├── js/
+│   │   ├── app.js                  # Lógica principal da aplicação
+│   │   ├── admin.js                # Painel administrativo
+│   │   ├── feedback.js             # Sistema de toasts e validações
+│   │   └── api.js                  # Cliente da API
+│   └── uploads/                    # Imagens enviadas pelos usuários
+├── servidor/
+│   ├── app.js                      # Configuração do servidor Express
+│   ├── banco/
+│   │   ├── conexao.js              # Conexão com SQLite
+│   │   └── inicializarBanco.js     # Scripts de inicialização do DB
+│   └── rotas/
+│       ├── rotasAutenticacao.js    # Login, cadastro, usuários
+│       ├── rotasNoticias.js        # CRUD de notícias
+│       ├── rotasCategorias.js      # Gerenciamento de categorias
+│       ├── rotasEventos.js         # Eventos da comunidade
+│       ├── rotasHistorias.js       # Histórias dos usuários
+│       └── rotasDireitos.js        # Direitos e leis
+
+FUNCIONALIDADES PRINCIPAIS
+================================================================================
+
+1. AUTENTICAÇÃO E AUTORIZAÇÃO
+   - Cadastro de usuários (leitor, autor, admin)
+   - Login com JWT
+   - Cadastro com confirmação de senha no frontend e backend
+   - Controle de permissões por tipo de usuário
+   - Perfil do usuário
+
+2. SISTEMA DE NOTÍCIAS
+   - Listagem de notícias por categoria
+   - Sistema de destaques
+   - Busca e filtros
+   - CRUD completo para administradores
+
+3. GERENCIAMENTO DE HISTÓRIAS
+   - Usuários podem enviar suas histórias
+   - Revisão e aprovação por administradores
+   - Publicação automática após aprovação
+
+4. SISTEMA DE EVENTOS
+   - Cadastro de eventos acessíveis
+   - Filtros por data
+   - Informações sobre acessibilidade
+
+5. DIREITOS E LEGISLAÇÃO
+   - Base de dados de leis e decretos
+   - Busca por categoria
+   - Termo do dia em Libras
+
+6. PAINEL ADMINISTRATIVO
+   - Gerenciamento completo de notícias
+   - Aprovação/rejeição de histórias
+   - Gerenciamento de usuários
+   - Estatísticas e relatórios
+
+7. ACESSIBILIDADE
+   - Design responsivo
+   - Alto contraste opcional
+   - Navegação por teclado
+   - VLibras integrado
+   - Estrutura semântica HTML5
+
+BANCO DE DADOS
+================================================================================
+O projeto utiliza SQLite com as seguintes tabelas principais:
+
+- Usuario: id, nome, email, senha, tipo, dataCriacao, ativo
+- Noticia: id, titulo, slug, resumo, conteudo, imagemCapa, videoLibras,
+           categoriaId, autorId, destaque, publicado, dataCriacao, dataAtualizacao
+- Categoria: id, nome, slug, cor, dataCriacao
+- Historia: id, titulo, conteudo, usuarioId, nomeAutor, emailAutor, cidade,
+            estado, aprovado, publicado, dataCriacao
+- Evento: id, titulo, descricao, data, local, acessibilidade, dataCriacao
+- Direito: id, titulo, descricao, numeroLei, linkOficial, categoria, dataCriacao
+
+API ENDPOINTS
+================================================================================
+
+AUTENTICAÇÃO:
+- POST /api/auth/cadastro          - Cadastrar usuário
+- POST /api/auth/login             - Fazer login
+- POST /api/auth/logout            - Fazer logout
+- GET  /api/auth/me                - Obter dados do usuário logado
+- PUT  /api/auth/perfil            - Atualizar perfil
+- GET  /api/auth/usuarios/listar   - Listar usuários (admin)
+- PUT  /api/auth/usuarios/:id/tipo - Alterar tipo de usuário (admin)
+
+NOTÍCIAS:
+- GET  /api/noticias               - Listar notícias
+- GET  /api/noticias/destaques     - Notícias em destaque
+- GET  /api/noticias/:slug         - Notícia específica
+- POST /api/noticias               - Criar notícia (autor/admin)
+- PUT  /api/noticias/:id           - Atualizar notícia (autor/admin)
+- DELETE /api/noticias/:id         - Excluir notícia (autor/admin)
+
+CATEGORIAS:
+- GET  /api/categorias             - Listar categorias
+- GET  /api/categorias/:slug       - Notícias por categoria
+
+HISTÓRIAS:
+- POST /api/historias              - Enviar história
+- GET  /api/historias              - Listar histórias publicadas
+- GET  /api/historias/admin/pendentes - Histórias pendentes (admin)
+- PUT  /api/historias/:id/aprovar  - Aprovar história (admin)
+- PUT  /api/historias/:id/rejeitar - Rejeitar história (admin)
+- PUT  /api/historias/:id          - Editar história (admin)
+- DELETE /api/historias/:id        - Excluir história (admin)
+
+EVENTOS:
+- GET  /api/eventos                - Listar eventos
+- GET  /api/eventos/proximos       - Próximos eventos
+- GET  /api/eventos/:id            - Evento específico
+- POST /api/eventos                - Criar evento (admin)
+
+DIREITOS:
+- GET  /api/direitos               - Listar direitos
+- GET  /api/direitos/:id           - Direito específico
+- GET  /api/direitos/dicionario/termo-do-dia - Termo do dia
+- GET  /api/direitos/dicionario/termos - Lista de termos
+
+UPLOAD:
+- (Nenhum endpoint de upload ativo no momento)
+
+COMO EXECUTAR O PROJETO
+================================================================================
+
+1. INSTALAÇÃO:
+   npm install
+
+2. INICIALIZAÇÃO DO BANCO:
+   npm run init-db
+
+3. DESENVOLVIMENTO:
+   npm run dev
+
+4. PRODUÇÃO:
+   npm start
+
+O servidor será executado na porta 3000 por padrão.
+
+CONFIGURAÇÃO DE AMBIENTE
+================================================================================
+Variáveis de ambiente suportadas:
+- PORT: Porta do servidor (padrão: 3000)
+- NODE_ENV: Ambiente (development/production)
+- JWT_SECRET: Chave secreta para JWT (obrigatório)
+
+SEGURANÇA
+================================================================================
+- Senhas hasheadas com bcrypt
+- Tokens JWT com expiração
+- Controle de permissões por tipo de usuário
+- Validação de entrada de dados
+- Limitação de tamanho de arquivos de upload
+- Sanitização de dados
+
+ACESSIBILIDADE
+================================================================================
+O projeto foi desenvolvido seguindo as melhores práticas de acessibilidade:
+
+- Estrutura semântica HTML5
+- Navegação por teclado completa
+- Alto contraste opcional
+- Textos alternativos em imagens
+- VLibras integrado
+- Design responsivo
+- Formulários acessíveis
+- Feedback visual e auditivo
+
+CONTRIBUIÇÃO
+================================================================================
+Para contribuir com o projeto:
+
+1. Faça um fork do repositório
+2. Crie uma branch para sua feature
+3. Faça commits descritivos
+4. Abra um Pull Request
+5. Aguarde revisão
+
+SUPORTE
+================================================================================
+Para suporte técnico ou dúvidas:
+- Abra uma issue no repositório
+- Entre em contato com a equipe de desenvolvimento
+- Consulte a documentação técnica
+
+VERSÃO ATUAL: 1.0.0
+DATA DE LANÇAMENTO: Abril 2026
+DESENVOLVEDOR: Helwi Bahmad
+================================================================================

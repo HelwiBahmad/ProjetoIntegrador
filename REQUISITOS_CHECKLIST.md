@@ -39,7 +39,7 @@
 ---
 
 ## 4. Feedback Visual
-- ✅ **Toast**: Sistema pronto (use-toast.ts)
+- ✅ **Toast**: Sistema pronto (ToastManager em feedback.js)
 - ❌ **Spinners**: Não implementado
 - ❌ **Skeletons**: Não implementado
 - ❌ **Modais de confirmação**: Não implementado

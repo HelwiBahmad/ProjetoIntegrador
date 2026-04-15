@@ -716,7 +716,7 @@ function inicializarAutenticacao() {
       }
 
       try {
-        const { usuario } = await window.API.Autenticacao.cadastro(nome, email, senha);
+        const { usuario } = await window.API.Autenticacao.cadastro(nome, email, senha, confirmar);
         Estado.usuarioLogado = usuario;
         atualizarUIUsuario();
         if (modalAuth) {

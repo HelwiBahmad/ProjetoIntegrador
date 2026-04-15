@@ -45,10 +45,10 @@ const APIAutenticacao = {
     });
   },
 
-  async cadastro(nome, email, senha) {
+  async cadastro(nome, email, senha, confirmarSenha) {
     return requisicaoAPI('/auth/cadastro', {
       method: 'POST',
-      body: JSON.stringify({ nome, email, senha })
+      body: JSON.stringify({ nome, email, senha, confirmarSenha })
     });
   },
 

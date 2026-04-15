@@ -125,6 +125,7 @@ const PainelAdmin = (() => {
     }
   }
 
+  // Função para upload de imagem
   // Funções públicas
   return {
     inicializar: function() {
@@ -191,7 +192,7 @@ const PainelAdmin = (() => {
           const categoriaIdRaw = document.getElementById('noticia-categoria')?.value;
           const categoriaId = categoriaIdRaw ? Number(categoriaIdRaw) : null;
           const resumo = document.getElementById('noticia-resumo')?.value.trim();
-          const conteudo = document.getElementById('noticia-conteudo')?.value.trim();
+          const conteudo = document.getElementById('noticia-conteudo-textarea')?.value.trim();
           const destaque = document.getElementById('noticia-destaque')?.checked;
 
           if (!titulo || !categoriaId || !resumo || !conteudo) {
@@ -333,7 +334,7 @@ const PainelAdmin = (() => {
       const tituloInput = document.getElementById('noticia-titulo');
       const categoriaSelect = document.getElementById('noticia-categoria');
       const resumoTextarea = document.getElementById('noticia-resumo');
-      const conteudoTextarea = document.getElementById('noticia-conteudo');
+      const conteudoTextarea = document.getElementById('noticia-conteudo-textarea');
       const destaqueCheckbox = document.getElementById('noticia-destaque');
 
       if (tituloInput) tituloInput.value = noticia.titulo || '';
