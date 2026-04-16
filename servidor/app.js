@@ -8,10 +8,15 @@ import { dirname, join } from 'path';
 // Rotas
 import rotasAutenticacao from './rotas/rotasAutenticacao.js';
 import rotasNoticias from './rotas/rotasNoticias.js';
+import rotasNoticiasRefator from './rotas/rotasNoticiasRefator.js';
 import rotasCategorias from './rotas/rotasCategorias.js';
+import rotasCategoriasRefator from './rotas/rotasCategoriasRefator.js';
 import rotasEventos from './rotas/rotasEventos.js';
+import rotasEventosRefator from './rotas/rotasEventosRefator.js';
 import rotasHistorias from './rotas/rotasHistorias.js';
+import rotasHistoriasRefator from './rotas/rotasHistoriasRefator.js';
 import rotasDireitos from './rotas/rotasDireitos.js';
+import rotasDireitosRefator from './rotas/rotasDireitosRefator.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -59,10 +64,15 @@ app.use(express.static(join(__dirname, '../public')));
 // Rotas da API
 app.use('/api/auth', rotasAutenticacao);
 app.use('/api/noticias', rotasNoticias);
+app.use('/api/noticias', rotasNoticiasRefator); // Rotas refatoradas (padrão MVC)
 app.use('/api/categorias', rotasCategorias);
+app.use('/api/categorias', rotasCategoriasRefator); // Rotas refatoradas (padrão MVC)
 app.use('/api/eventos', rotasEventos);
+app.use('/api/eventos', rotasEventosRefator); // Rotas refatoradas (padrão MVC)
 app.use('/api/historias', rotasHistorias);
+app.use('/api/historias', rotasHistoriasRefator); // Rotas refatoradas (padrão MVC)
 app.use('/api/direitos', rotasDireitos);
+app.use('/api/direitos', rotasDireitosRefator); // Rotas refatoradas (padrão MVC)
 
 // Rota para upload de imagens
 app.post('/api/upload/imagem', upload.single('imagem'), (req, res) => {
